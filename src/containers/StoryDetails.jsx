@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
 import date from '../utilities';
 import Divider from '../components/ui/Divider';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
+import api from '../api';
 
 const StoryDetails = () => {
   const { id } = useParams();
@@ -17,7 +16,8 @@ const StoryDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getComments = (childrenComments) => {
-    Promise.all(childrenComments.splice(0, numberOfComments).map((childId) => axios.get(`https://hacker-news.firebaseio.com/v0/item/${childId}.json?print=pretty`)))
+    Promise.all(childrenComments.splice(0, numberOfComments)
+      .map((childId) => api.getPostById(childId)))
       .then((response) => {
         const newComments = [];
         response.forEach((item) => newComments.push(item.data));
@@ -30,7 +30,7 @@ const StoryDetails = () => {
   };
 
   const getPost = () => {
-    axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
+    api.getPostById(id)
       .then((response) => {
         getComments(response.data.kids);
         setPost(response.data);
@@ -56,23 +56,23 @@ const StoryDetails = () => {
           <div className="story-post-wrapper">
             <p>{post.title}</p>
             <p>{post.url && post.url}</p>
-            <p className="post-details">
-              <p>
+            <div className="post-details">
+              <div>
                 {date(post.time)}
-                <div className="divider-div" />
+                <p className="divider-div" />
                 by
                 <span className="main-color">{` ${post.by}`}</span>
-              </p>
-              <div className="post-interactions" to={`/${post.id}`}>
+              </div>
+              <p className="post-interactions" to={`/${post.id}`}>
                 <FavoriteIcon className="main-color" sx={{ fontSize: 20 }} />
                 {`${post.score} Likes`}
                 <ChatBubbleIcon className="main-color" sx={{ marginLeft: '50px', fontSize: 20 }} />
                 {`${(post.kids) ? post.kids.length : 0} Main comments`}
-              </div>
-            </p>
+              </p>
+            </div>
             <div className="comments-container">
               {(comments.length !== 0) && comments.map((comment) => (
-                <div key={comment.tittle}>
+                <div key={comment.time}>
                   <Divider />
                   <p>{comment.text ? comment.text : 'No text'}</p>
                   <p>
@@ -88,14 +88,14 @@ const StoryDetails = () => {
           </div>
         )
         : (
-          <Box sx={{ width: '100%' }}>
+          <div>
             <Skeleton variant="rectangular" height={118} />
             <Skeleton variant="text" width="33%" height={50} />
             <Skeleton variant="rectangular" height={118} />
             <Skeleton variant="text" width="33%" height={50} />
             <Skeleton variant="rectangular" height={118} />
             <Skeleton variant="text" width="33%" height={50} />
-          </Box>
+          </div>
 
         )}
       {(comments.length === numberOfComments && isLoading === false)

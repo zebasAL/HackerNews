@@ -30,8 +30,11 @@ const AccordionContainer = ({
 
 AccordionContainer.propTypes = {
   handleChange: PropTypes.func.isRequired,
-  accordionId: PropTypes.bool.isRequired,
-  expandedId: PropTypes.bool.isRequired,
+  accordionId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool,
+  ]).isRequired,
+  expandedId: PropTypes.number.isRequired,
   childrenSummary: PropTypes.node,
   childrenDetails: PropTypes.node,
 };

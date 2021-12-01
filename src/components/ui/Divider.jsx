@@ -12,7 +12,11 @@ const Divider = ({
 );
 
 Divider.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
+};
+
+Divider.defaultProps = {
+  label: '',
 };
 
 export default Divider;

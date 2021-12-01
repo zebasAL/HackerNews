@@ -12,6 +12,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
+    "babel-jest": "^26.6.0",
+    "eslint-plugin-markdown": "^2.2.1",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -45,11 +47,27 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^19.0.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^19.0.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0"
-  }
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^26.6.0"
+  },
+  "description": "SKIP_PREFLIGHT_CHECK=true",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zebasAL/HackerNews.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zebasAL/HackerNews/issues"
+  },
+  "homepage": "https://github.com/zebasAL/HackerNews#readme"
 }

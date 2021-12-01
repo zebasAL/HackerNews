@@ -57,10 +57,15 @@ p {
   display: flex;
 }
 
+.post-tittle {
+  margin: 10px 0;
+}
+
 .post-details {
   display: flex;
   justify-content: space-between;
-  
+  align-items: center;
+  font-size: 10px;
 }
 
 .divider-div {
@@ -90,6 +95,10 @@ a.post-interactions {
 
 a.post-interactions:hover {
   color: red;
+}
+
+.summary-accordion {
+  display: contents;
 }
 
 /* Load more button */

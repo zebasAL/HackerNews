@@ -11,6 +11,7 @@ const LoadMoreButton = ({
   <div className="load-more-button">
     <Stack direction="row" spacing={2}>
       <LoadingButton
+        data-testid="loadButton"
         sx={{ height: '40px', borderRadius: '100%', backgroundColor: '#ff6c37' }}
         loading={isLoading}
         variant="contained"
