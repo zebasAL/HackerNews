@@ -1,6 +1,38 @@
 
 @media only screen and (max-width: 700px)  {
 
+  .navbar, .navbar img {
+    max-height: 40px;
+  }
+
+  .main-container {
+    margin: 5px;
+  }
   
-  
+  /* Homepage */
+  .MuiAccordionSummary-content p {
+    font-size: 10px;
+  }
+
+  .post-interactions p {
+    font-size: 7px;
+  }
+
+  .post-interactions svg {
+    font-size: 12px;
+    margin-left: 15px;
+  }
+
+  .MuiAccordionDetails-root p {
+    font-size: 10px;
+  }
+
+/* Story details view */
+  .story-post-wrapper p {
+    font-size: 10px;
+  }
+
+  .story-post-wrapper p:nth-child(2) {
+  }
+
 }

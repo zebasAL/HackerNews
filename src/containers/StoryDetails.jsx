@@ -7,18 +7,22 @@ import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 import date from '../utilities';
 import Divider from '../components/ui/Divider';
+import LoadMoreButton from '../components/ui/LoadMoreButton';
 
 const StoryDetails = () => {
   const { id } = useParams();
+  const [numberOfComments, setNumberOfComments] = useState(20);
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getComments = (childrenComments) => {
-    Promise.all(childrenComments.map((childId) => axios.get(`https://hacker-news.firebaseio.com/v0/item/${childId}.json?print=pretty`)))
+    Promise.all(childrenComments.splice(0, numberOfComments).map((childId) => axios.get(`https://hacker-news.firebaseio.com/v0/item/${childId}.json?print=pretty`)))
       .then((response) => {
         const newComments = [];
         response.forEach((item) => newComments.push(item.data));
         setComments(newComments);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -36,9 +40,14 @@ const StoryDetails = () => {
       });
   };
 
+  const handleLoadingButton = () => {
+    setIsLoading(true);
+    setNumberOfComments(numberOfComments + 20);
+  };
+
   useEffect(() => {
     getPost();
-  }, []);
+  }, [numberOfComments]);
 
   return (
     <div>
@@ -89,6 +98,13 @@ const StoryDetails = () => {
           </Box>
 
         )}
+      {(comments.length === numberOfComments && isLoading === false)
+      && (
+      <LoadMoreButton
+        isLoading={isLoading}
+        handleLoadingButton={() => handleLoadingButton()}
+      />
+      )}
     </div>
   );
 };
