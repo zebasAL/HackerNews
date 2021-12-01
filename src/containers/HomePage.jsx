@@ -60,9 +60,9 @@ const HomePage = () => {
             handleChange={handleChange(index)}
             childrenSummary={(
               <>
-                <Typography>{storyPost.title}</Typography>
-                <Typography className="subject">
-                  <p>
+                <Typography className="post-tittle">{storyPost.title}</Typography>
+                <Typography className="post-details">
+                  <p className="post-creator-details">
                     {date(storyPost.time)}
                     <div className="divider-div" />
                     by
@@ -71,9 +71,9 @@ const HomePage = () => {
                   </p>
                   <Link className="post-interactions" to={`/${storyPost.id}`}>
                     <FavoriteIcon className="main-color" sx={{ fontSize: 20 }} />
-                    {`${storyPost.score} Likes`}
+                    <p>{`${storyPost.score} Likes`}</p>
                     <ChatBubbleIcon className="main-color" sx={{ marginLeft: '50px', fontSize: 20 }} />
-                    {`${(storyPost.kids) ? storyPost.kids.length : 0} Main comments`}
+                    <p>{`${(storyPost.kids) ? storyPost.kids.length : 0} Main comments`}</p>
                   </Link>
                 </Typography>
               </>
