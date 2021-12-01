@@ -4,11 +4,10 @@
 
 html {
   background-color: #bababa7a;
-  /* min-height: 100vh;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  text-align: center; */
+}
+
+p {
+  word-wrap: break-word;
 }
 
 /* Navbar */
@@ -22,20 +21,18 @@ html {
   max-height: 80px;
 }
 
+.main-container {
+  margin: 20px;
+}
+
 /* Homepage */
 .main-color {
   color: #ff6c37;
 }
 
-.story-posts-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px;
-}
-
 .story-posts-wrapper {
-  width: 100%;
-  margin: .5px 0;
+  margin-bottom: 1px;
+  border-bottom: 1px solid rgb(0 0 0 / 24%);
 }
 
 .story-posts-wrapper:hover, .story-posts-wrapper:focus-within {
@@ -57,10 +54,13 @@ html {
 .MuiAccordionSummary-content p {
   width: 100%;
   font-weight: bold;
+  display: flex;
 }
 
-.subject {
+.post-details {
   display: flex;
+  justify-content: space-between;
+  
 }
 
 .divider-div {
@@ -68,18 +68,18 @@ html {
   width: 20px;
   height: 1px;
   background-color: black;
-  margin: 5px;
+  margin: auto 5px;
 }
 
 .post-interactions, .post-interactions p {
   display: flex;
   align-items: center;
-  white-space: nowrap;
 }
 
 .MuiAccordionDetails-root {
   padding: 8px 16px 16px;
   background-color: #dcdcdc73;
+  width: 100%;
 }
 
 a.post-interactions {
@@ -100,10 +100,37 @@ a.post-interactions:hover {
 button.MuiLoadingButton-root {
   min-width: 20px;
   width: 45px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 button.MuiLoadingButton-root:hover {
   box-shadow: 0px 0px 12px 1px rgb(0 0 0 / 24%);
   background-color: #ff6c37;
+}
+
+/* Story Details view */
+.story-post-wrapper {
+  background-color: #fdfdfd;
+  padding: 1px 16px;
+  font-weight: bold;
+}
+
+.comments-container p {
+  color: #8b8b8b;
+}
+
+/* divider component */
+.divider-line-container {
+  display: flex;
+  margin: 20px 0;
+}
+
+.divider-line {
+  display: inline-block;
+  margin: auto 0;
+  height: 1.5px;
+  content: " ";
+  text-shadow: none;
+  background-color: #888787;
+  width: 100%;
 }

@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Link } from 'react-router-dom';
+import AccordionContainer from '../components/ui/Accordion';
 import date from '../utilities';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
 
 const HomePage = () => {
   const [storyPosts, setStoryPosts] = useState([]);
-  const [expanded, setExpanded] = useState(false);
+  const [expandedId, setExpandedId] = useState(false);
   const [numberOfPosts, setNumberOfPosts] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleChange = (panelId) => () => {
+    setExpandedId(expandedId !== panelId ? panelId : false);
   };
 
   const getTopPosts = (postsId) => {
@@ -54,22 +52,22 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="story-posts-container">
-        {storyPosts.map((storyPost, index) => (
-          <div key={storyPost.title} className="story-posts-wrapper">
-            <Accordion
-              disableGutters
-              expanded={expanded === index}
-              onChange={handleChange(index)}
-            >
-              <AccordionSummary expandIcon={null} aria-controls="panel1bh-content" id="panel1bh-header">
+      {storyPosts.map((storyPost, index) => (
+        <div key={storyPost.title}>
+          <AccordionContainer
+            accordionId={expandedId} // false -> 0
+            expandedId={index} // 0
+            handleChange={handleChange(index)}
+            childrenSummary={(
+              <>
                 <Typography>{storyPost.title}</Typography>
                 <Typography className="subject">
                   <p>
                     {date(storyPost.time)}
                     <div className="divider-div" />
                     by
-                    <span className="main-color">{` ${storyPost.by}`}</span>
+                    <span className="main-color">{storyPost.by}</span>
+
                   </p>
                   <Link className="post-interactions" to={`/${storyPost.id}`}>
                     <FavoriteIcon className="main-color" sx={{ fontSize: 20 }} />
@@ -78,15 +76,13 @@ const HomePage = () => {
                     {`${(storyPost.kids) ? storyPost.kids.length : 0} Main comments`}
                   </Link>
                 </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>{storyPost.url ? storyPost.url : 'There\'s no url in this story'}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+              </>
+              )}
+            childrenDetails={<Typography>{storyPost.url ? storyPost.url : 'There\'s no url in this story'}</Typography>}
+          />
+        </div>
 
-        ))}
-      </div>
+      ))}
       <LoadMoreButton isLoading={isLoading} handleLoadingButton={() => handleLoadingButton()} />
     </div>
   );

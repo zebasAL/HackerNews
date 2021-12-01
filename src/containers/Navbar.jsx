@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/hacker-news1_logo.jpg';
 
 const Navbar = () => (
-  <div>
+  <Link to="/">
     <img alt="HackerNews" src={logo} />
-  </div>
+  </Link>
 );
 
 export default Navbar;
