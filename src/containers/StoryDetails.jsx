@@ -122,7 +122,7 @@ const StoryDetails = () => {
                           isLoading={false}
                           handleLoadingButton={() => toggleClass(index)}
                         >
-                          <KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '10px', transform: isRotated }} />
+                          <KeyboardArrowDownIcon sx={index === mapItem ? { color: '#fdfdfd', fontSize: '10px', transform: isRotated } : null} />
                         </LoadMoreButton>
                       )
                       : null}
