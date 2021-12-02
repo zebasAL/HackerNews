@@ -12,15 +12,22 @@
   /* Homepage */
   .MuiAccordionSummary-content p {
     font-size: 10px;
+    margin: 5px 0;
   }
 
-  .post-interactions p {
-    font-size: 7px;
+  .post-details {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+  }
+
+  .post-details div {
+    display: inline-flex;
   }
 
   .post-interactions svg {
     font-size: 12px;
-    margin-left: 15px;
   }
 
   .MuiAccordionDetails-root p {
@@ -32,4 +39,17 @@
     font-size: 10px;
   }
 
+  p.post-interactions {
+    justify-content: center;
+  }
+
+  .comments-container button.MuiLoadingButton-root {
+    height: 15px;
+    padding: 8px;
+    background-color: #dddd;
+  }
+
+  .comments-container button.MuiLoadingButton-root:hover {
+    background-color: #ff6c37;
+  }
 }

@@ -28,6 +28,7 @@ p {
 /* Homepage */
 .main-color {
   color: #ff6c37;
+  margin: 0 2px;  
 }
 
 .story-posts-wrapper {
@@ -55,9 +56,6 @@ p {
   width: 100%;
   font-weight: bold;
   display: flex;
-}
-
-.post-tittle {
   margin: 10px 0;
 }
 
@@ -65,7 +63,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .divider-div {
@@ -91,10 +89,15 @@ p {
 a.post-interactions {
   text-decoration: none;
   color: inherit;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
 }
 
 a.post-interactions:hover {
   color: red;
+  background-color: #e2e1e0;
+  border-radius: 5px;
 }
 
 .summary-accordion {
@@ -107,10 +110,18 @@ a.post-interactions:hover {
   justify-content: center;
 }
 
-button.MuiLoadingButton-root {
-  min-width: 20px;
-  width: 45px;
-  margin: 20px 0;
+.comments-container button.MuiLoadingButton-root {
+  min-width: 10px;
+  width: 10px;
+  height: 20px;
+  padding: 20px;
+  border-radius: 100%;
+  background-color: #dddddd;
+}
+
+.comments-container button.MuiLoadingButton-root svg {
+  font-size: 20px;
+  color: #ff6c37;
 }
 
 button.MuiLoadingButton-root:hover {
@@ -118,11 +129,17 @@ button.MuiLoadingButton-root:hover {
   background-color: #ff6c37;
 }
 
+button.MuiLoadingButton-root svg:hover {
+  color: #dddddd;
+}
+
 /* Story Details view */
 .story-post-wrapper {
   background-color: #fdfdfd;
-  padding: 1px 16px;
+  padding: 1px 16px 30px 16px;
   font-weight: bold;
+  box-shadow: 0px 5px 3px 0px rgb(0 0 0 / 24%);
+  border-radius: 5px;
 }
 
 .comments-container p {

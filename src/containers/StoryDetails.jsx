@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Skeleton from '@mui/material/Skeleton';
 import date from '../utilities';
 import Divider from '../components/ui/Divider';
@@ -14,6 +15,7 @@ const StoryDetails = () => {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [mapItem, setMapItem] = useState(NaN);
 
   const getComments = (childrenComments) => {
     Promise.all(childrenComments.splice(0, numberOfComments)
@@ -45,6 +47,14 @@ const StoryDetails = () => {
     setNumberOfComments(numberOfComments + 20);
   };
 
+  const toggleClass = (index) => {
+    if (index === mapItem) {
+      setMapItem(NaN);
+    } else {
+      setMapItem(index);
+    }
+  };
+
   useEffect(() => {
     getPost();
   }, [numberOfComments]);
@@ -67,23 +77,39 @@ const StoryDetails = () => {
                 <FavoriteIcon className="main-color" sx={{ fontSize: 20 }} />
                 {`${post.score} Likes`}
                 <ChatBubbleIcon className="main-color" sx={{ marginLeft: '50px', fontSize: 20 }} />
-                {`${(post.kids) ? post.kids.length : 0} Main comments`}
+                {`${(post.kids) ? post.kids.length : 0} comments remaining`}
               </p>
             </div>
+
             <div className="comments-container">
-              {(comments.length !== 0) && comments.map((comment) => (
-                <div key={comment.time}>
-                  <Divider />
-                  <p>{comment.text ? comment.text : 'No text'}</p>
-                  <p>
-                    {`${comment.type} by `}
-                    <span className="main-color">
-                      {comment.by}
-                    </span>
-                    {` ${date(comment.time)}`}
-                  </p>
-                </div>
-              ))}
+              {(comments.length !== 0) && comments.map((comment, index) => {
+                const textComment = (comment.text) ? comment.text : 'There is no comments';
+                return (
+                  <div key={comment.time}>
+                    <Divider />
+                    <p>{index === mapItem ? textComment : textComment.substring(0, 599)}</p>
+                    <p>
+                      {`${comment.type} by `}
+                      <span className="main-color">
+                        {comment.by}
+                      </span>
+                      {` ${date(comment.time)}`}
+                    </p>
+
+                    {textComment.length > 600
+                      ? (
+                        <LoadMoreButton
+                          styles={{ height: '15px', marginTop: '15px' }}
+                          isLoading={false}
+                          handleLoadingButton={() => toggleClass(index)}
+                        >
+                          <KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '10px' }} />
+                        </LoadMoreButton>
+                      )
+                      : null}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )
@@ -96,14 +122,16 @@ const StoryDetails = () => {
             <Skeleton variant="rectangular" height={118} />
             <Skeleton variant="text" width="33%" height={50} />
           </div>
-
         )}
-      {(comments.length === numberOfComments && isLoading === false)
+
+      {(post !== 0)
       && (
       <LoadMoreButton
         isLoading={isLoading}
         handleLoadingButton={() => handleLoadingButton()}
-      />
+      >
+        {!isLoading ? (<KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '30px' }} />) : null}
+      </LoadMoreButton>
       )}
     </div>
   );

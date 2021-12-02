@@ -63,12 +63,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zebasAL/HackerNews.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zebasAL/HackerNews/issues"
-  },
-  "homepage": "https://github.com/zebasAL/HackerNews#readme"
+  }
 }

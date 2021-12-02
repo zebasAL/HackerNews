@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 import AccordionComponent from '../components/ui/Accordion';
 import date from '../utilities';
@@ -85,7 +86,12 @@ const HomePage = () => {
         </div>
 
       ))}
-      <LoadMoreButton isLoading={isLoading} handleLoadingButton={() => handleLoadingButton()} />
+      <LoadMoreButton
+        isLoading={isLoading}
+        handleLoadingButton={() => handleLoadingButton()}
+      >
+        {!isLoading ? (<KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '30px' }} />) : null}
+      </LoadMoreButton>
     </div>
   );
 };

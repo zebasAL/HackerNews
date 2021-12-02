@@ -14,8 +14,8 @@ describe('handles Accordion', () => {
   it('renders Accordion', () => {
     const mockEventHandler = jest.fn();
     const props = {
-      accordionId: '0',
-      expandedId: '1',
+      accordionId: 0,
+      expandedId: 1,
       childrenSummary: 'lorem',
       childrenDetails: 'lorem ipsum',
       handleChange: mockEventHandler,
