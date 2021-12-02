@@ -27,7 +27,7 @@ const LoadMoreButton = ({
 LoadMoreButton.propTypes = {
   handleLoadingButton: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  styles: PropTypes.shape((PropTypes.string)),
+  styles: PropTypes.shape((PropTypes.string.isRequired)),
   children: PropTypes.node,
 };
 

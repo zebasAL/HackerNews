@@ -15,10 +15,19 @@ const HomePage = () => {
   const [numberOfPosts, setNumberOfPosts] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * gets item id from array when accordion is expanded
+   * @param {number} panelId
+   */
   const handleChange = (panelId) => () => {
     setExpandedId(expandedId !== panelId ? panelId : false);
   };
 
+  /**
+   * gets full details from every post and shows them 10 by 10
+   * @param {Array.<number>} postsId
+   * @returns {Array.<Object>}
+   */
   const getTopPosts = (postsId) => {
     Promise.all(postsId.splice(0, numberOfPosts).map((id) => api.getPostById(id)))
       .then((response) => {
@@ -32,6 +41,10 @@ const HomePage = () => {
       });
   };
 
+  /**
+   * gets all top posts Id's
+   * @returns {Array.<number>}
+   */
   const getTopPostsId = () => {
     api.getTopPosts()
       .then((response) => {
@@ -42,6 +55,10 @@ const HomePage = () => {
       });
   };
 
+  /**
+ * increase storyPosts array length
+ * @returns {void}
+ */
   const handleLoadingButton = () => {
     setIsLoading(true);
     setNumberOfPosts(numberOfPosts + 10);

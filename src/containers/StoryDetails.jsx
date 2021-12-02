@@ -12,11 +12,17 @@ import api from '../api';
 const StoryDetails = () => {
   const { id } = useParams();
   const [numberOfComments, setNumberOfComments] = useState(20);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({ kids: [] });
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [mapItem, setMapItem] = useState(NaN);
+  const [isRotated, setIsRotated] = useState('');
 
+  /**
+   * gets children comments from story post
+   * @param {Array.<number>} childrenComments
+   * @returns {Array}
+   */
   const getComments = (childrenComments) => {
     Promise.all(childrenComments.splice(0, numberOfComments)
       .map((childId) => api.getPostById(childId)))
@@ -31,27 +37,40 @@ const StoryDetails = () => {
       });
   };
 
+  /**
+   * gets main post using url params
+   * @returns {object}
+   */
   const getPost = () => {
     api.getPostById(id)
       .then((response) => {
-        getComments(response.data.kids);
         setPost(response.data);
+        getComments([...response.data.kids]);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  /**
+ * increase post comments array length
+ */
   const handleLoadingButton = () => {
     setIsLoading(true);
     setNumberOfComments(numberOfComments + 20);
   };
 
+  /**
+   * set selected item from array and add style to it
+   * @param {number} index
+   */
   const toggleClass = (index) => {
     if (index === mapItem) {
       setMapItem(NaN);
+      setIsRotated('rotate(0deg)');
     } else {
       setMapItem(index);
+      setIsRotated('rotate(180deg)');
     }
   };
 
@@ -61,7 +80,7 @@ const StoryDetails = () => {
 
   return (
     <div>
-      {(comments.length !== 0)
+      {(post.kids ? comments.length !== 0 : true)
         ? (
           <div className="story-post-wrapper">
             <p>{post.title}</p>
@@ -77,7 +96,7 @@ const StoryDetails = () => {
                 <FavoriteIcon className="main-color" sx={{ fontSize: 20 }} />
                 {`${post.score} Likes`}
                 <ChatBubbleIcon className="main-color" sx={{ marginLeft: '50px', fontSize: 20 }} />
-                {`${(post.kids) ? post.kids.length : 0} comments remaining`}
+                {`${(post.kids) ? post.kids.length : 0} comments`}
               </p>
             </div>
 
@@ -103,7 +122,7 @@ const StoryDetails = () => {
                           isLoading={false}
                           handleLoadingButton={() => toggleClass(index)}
                         >
-                          <KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '10px' }} />
+                          <KeyboardArrowDownIcon sx={{ color: '#fdfdfd', fontSize: '10px', transform: isRotated }} />
                         </LoadMoreButton>
                       )
                       : null}
@@ -124,7 +143,7 @@ const StoryDetails = () => {
           </div>
         )}
 
-      {(post !== 0)
+      {((post.kids ? post.kids.length : 0) !== comments.length)
       && (
       <LoadMoreButton
         isLoading={isLoading}
